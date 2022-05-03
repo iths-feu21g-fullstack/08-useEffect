@@ -1,45 +1,35 @@
 import { useState } from 'react'
 import logo from './logo.svg'
 import './App.css'
+import MountEffect from './components/MountEffect'
+import AfterEvent from './components/AfterEvent'
+import Interval from './components/Interval'
 
 function App() {
-  const [count, setCount] = useState(0)
+	const MOUNT = "mount", AFTER = "after", INTERVAL = 'interval';
+	const [tab, setTab] = useState<string>('')
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.tsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
+	let content: (string | JSX.Element) = <div>'Choose a tab'</div>;
+	if (tab === MOUNT) {
+    content = <MountEffect />;
+  } else if (tab === AFTER) {
+    content = <AfterEvent />;
+  } else if( tab === INTERVAL ) {
+		content = <Interval />
+	}
+
+	return (
+    <div className='app'>
+      <div className='tab-container'>
+        <div className='tab-header'>
+          <button onClick={() => setTab(MOUNT)}> Mount </button>
+          <button onClick={() => setTab(AFTER)}> Efter event </button>
+          <button onClick={() => setTab(INTERVAL)}> Interval </button>
+        </div>
+        <div className='tab-content'>{content}</div>
+      </div>
     </div>
-  )
+  );
 }
 
 export default App
