@@ -5,7 +5,7 @@ const Interval = () => {
 	const [intervalId, setIntervalId] = useState<number>(0)
 
 	const stopFunction = () => {
-		console.log('Stoppar intervallet ', intervalId)
+		// console.log('Stoppar intervallet ', intervalId)
 		clearInterval(intervalId)
 	}
 
@@ -14,13 +14,14 @@ const Interval = () => {
 			setCount(count => count + 1)
 		}, 500)
 		setIntervalId(id)
-		console.log('Startar intervall... id', id)
+		// console.log('Startar intervall... id', id)
 
-		// const stopFunction = () => {
-		// 	console.log('Stoppar intervallet...')
-		// 	clearInterval(intervalId)
-		// };
-		return stopFunction
+		// State-variabeln fungerar inte pga closures
+		const localStopFunction = () => {
+			// console.log('Stoppar intervallet...')
+			clearInterval(id)
+		};
+		return localStopFunction
 	}, [])
 
 
